@@ -1,13 +1,15 @@
 # Overview
 
-This project uses a Wi-Fi module to request weather data from a public API and display it on an E-Paper display.
+This project uses a Wi-Fi module to request weather data from a public API and display it on an E-Paper display. Weather is only fetched every 6 hours, and power consumption is reduced to a few microamperes when not updating. The display requires no power when not updating, which is perfect for this application. The widget is powered by two batteries serving distinct purposes.
 
 # Components
 
-* 4.3 Inch E-Paper display ([link](www.waveshare.com/wiki/4.3inch_e-Paper))
-* Particle Photon
+* [4.3 Inch E-Paper display](www.waveshare.com/wiki/4.3inch_e-Paper)
+* [Particle Photon](https://store.particle.io/collections/photon)
 * Arduino Uno
-* 
+* 9V battery (powers the Arduino and the display)
+* Small 3.7V rechargeable battery (powers the Photon only)
+* TIP-120 Transistor (turns off power to Arduino and display except when updating)
 
 # How it works
 ## Logic
@@ -44,22 +46,39 @@ Fri,Apr 13,30/19,50d
 ## Hardware
 
 * Sleep; force sleep
-* E-Paper
+
+```C
+System.sleep(SLEEP_MODE_DEEP, DEEP_SLEEP_SECONDS);
+```
+* E-Paper: this display consumes no power except when updating.
 * Icons
 * SD card
+* Transistor: used to turn off the unnecessary components when not updating. An update happens once every 6 hours, and this allows us to use very little power most of the time.
+* Current:
+** Photon: normal 50mA, deep sleep 50µA (very rough numbers)
+** Arduino Uno: 50mA
+** E-Paper display: 150-200mA when updating
+* Voltage:
+** Photon: Accepts 3.3-5V (bad idea to plug in a 9V battery directly, as I've found out)
+** Arduino Uno: Accepts 9V Vin (has a voltage regulator)
+** E-Paper display: accepts both 3.3V and 5V.
 
-## Libraries
+## Libraries used
 
 * SparkJson
 * Wire (I2C)
 * EPD
   * The EPD library is modified to include a function called ```epd_import_sd()```. This allows copying images from the SD card to the display's built-in NandFlash memory. This removes the need to have an SD card always plugged in, which is good because it seems to corrupt SD cards once in a while.
   
-# Future
+# Various
+* Why even use an Arduino?
+** The main reason is that I couldn't get the EPD library to run on the Photon. Besides it's more fun this way :-)
+
+# Future plans (version 2)
 * ZIP code entry plug-in
-* Low Power (Arduino Pro Mini)
+* Even less power (Arduino Pro Mini)
   
-## Sample openweathermap output
+# Sample openweathermap output
 ```javascript
 {
     city: {
