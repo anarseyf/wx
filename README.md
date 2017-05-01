@@ -46,22 +46,24 @@ Fri,Apr 13,30/19,50d
 ## Hardware
 
 * Sleep; force sleep
-
+Particle has an excellent low-power mode. In Deep Sleep it only consumes a handful of microamperes. At the end of the specified sleep period the chip restarts.
 ```C
 System.sleep(SLEEP_MODE_DEEP, DEEP_SLEEP_SECONDS);
 ```
 * E-Paper: this display consumes no power except when updating.
-* Icons
-* SD card
+* SD Card: 
+  * the `epd_disp_bitmap()` function can be used to load BMP images from the display's memory. These are initially loaded from a micro-SD card, then copied to internal flash memory.
+* Acrylic case:
+  * I sent Acrobat files [Pagoda Arts](pagodaarts.com)
 * Transistor: used to turn off the unnecessary components when not updating. An update happens once every 6 hours, and this allows us to use very little power most of the time.
 * Current:
-** Photon: normal 50mA, deep sleep 50µA (very rough numbers)
-** Arduino Uno: 50mA
-** E-Paper display: 150-200mA when updating
+  * Photon: normal 50mA, deep sleep 50µA (very rough numbers)
+  * Arduino Uno: 50mA
+  * E-Paper display: 150-200mA when updating
 * Voltage:
-** Photon: Accepts 3.3-5V (bad idea to plug in a 9V battery directly, as I've found out)
-** Arduino Uno: Accepts 9V Vin (has a voltage regulator)
-** E-Paper display: accepts both 3.3V and 5V.
+  * Photon: Accepts 3.3-5V (bad idea to plug in a 9V battery directly, as I've found out)
+  * Arduino Uno: Accepts 9V Vin (has a voltage regulator)
+  * E-Paper display: accepts both 3.3V and 5V.
 
 ## Libraries used
 
@@ -72,7 +74,7 @@ System.sleep(SLEEP_MODE_DEEP, DEEP_SLEEP_SECONDS);
   
 # Various
 * Why even use an Arduino?
-** The main reason is that I couldn't get the EPD library to run on the Photon. Besides it's more fun this way :-)
+  * The main reason is that I couldn't get the EPD library to run on the Photon. Besides it's more fun this way :-)
 
 # Future plans (version 2)
 * ZIP code entry plug-in
