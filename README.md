@@ -1,8 +1,6 @@
 # Overview
 
-This project uses a Wi-Fi module to request weather data from a public API and display it on an E-Paper display. Weather is only fetched every 6 hours, and power consumption is reduced to a few microamperes when not updating. The display requires no power when not updating, which is perfect for this application. The widget is powered by two batteries serving distinct purposes.
-
-![Display](/screenshots/display.jpg)
+This project uses a Wi-Fi module to request weather data from a public API and display it on an E-Paper display. Weather is only fetched every 6 hours, and power consumption is reduced to a few microamperes when not updating. The display requires no power when not updating, which is perfect for this application. The widget is powered by two batteries serving distinct purposes. Photos below.
 
 # Components
 
@@ -81,6 +79,19 @@ System.sleep(SLEEP_MODE_DEEP, DEEP_SLEEP_SECONDS);
 # Future plans (version 2)
 * ZIP code entry plug-in
 * Even less power (Arduino Pro Mini)
+
+# Photos
+## Display
+<img src="/screenshots/display.jpg" width="50%">
+
+## Acrylic Case
+<img src="/screenshots/case.jpg" width="50%">
+
+## Main components 
+<img src="/screenshots/bottom.jpg" width="50%">
+
+## Transistor
+<img src="/screenshots/transistor.jpg" width="50%">
   
 # Sample openweathermap output
 ```javascript
