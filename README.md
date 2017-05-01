@@ -14,17 +14,17 @@ This project uses a Wi-Fi module to request weather data from a public API and d
 # How it works
 ## Logic
 * Photon and Arduino establish communication via I2C. Photon is Master, Arduino is Slave.
-* Photon requests and receives ZIP code from Arduino (this is hard.
-* Photon publishes an event called **wx-request**, which is tied to a Particle [Webhook](https://docs.particle.io/guide/tools-and-features/webhooks/):
+* Photon requests and receives ZIP code from Arduino (this is hard-coded to `94123`, but I plan to add a plug-in module to select any ZIP).
+* Photon publishes an event called `wx-request`, which is tied to a Particle [Webhook](https://docs.particle.io/guide/tools-and-features/webhooks/):
 ```C
 Particle.subscribe("wx-data", dataHandler, MY_DEVICES);
 ...
 Particle.publish("wx-request", zip, PRIVATE);
 ```
 * The webhook creates an HTTP request to OpenWeatherMap in this format:
-```http://api.openweathermap.org/data/2.5/forecast/daily?APPID=<app-id>&zip=<ZIP>,US&units=metric```
+```http://api.openweathermap.org/data/2.5/forecast/daily?APPID=<app-id>&zip=<zip>,US&units=metric```
   * *app-id* is my unique OpenWeatherMap API key; it's configured as a parameter in the Webhook
-  * *zip* comes from **wx-request**.
+  * *zip* comes from `wx-request`.
 * *dataHandler* collects partial responses (the full response is larger than Particle's payload limit, which I think is 256 bytes).
 * Photon parses the response using the ```SparkJson``` library:
 ```C
@@ -43,7 +43,7 @@ Wed,Apr 11,0/-4,09d
 Thu,Apr 12,-2/-5,10d
 Fri,Apr 13,30/19,50d
 ```
-* Arduino parses the message, and renders the data on the screen. The last item is converted to an image name; for example, ```09d``` becomes ```09D.BMP```.
+* Arduino parses the message, and renders the data on the screen. The last item is converted to an image name; for example, `09d` becomes `09D.BMP`.
 ## Hardware
 
 * Sleep and Force Sleep:
