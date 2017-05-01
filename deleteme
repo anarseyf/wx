@@ -1,0 +1,36 @@
+{
+    city: {
+        id: 5391959,
+        name: "San Francisco",
+        coord: {
+        lon: -122.4195,
+        lat: 37.7749
+        },
+    country: "US",
+    population: 805235
+},
+cod: "200",
+message: 0.502746,
+cnt: 7,
+list: [{
+    dt: 1493582400,
+    temp: {
+       day: 23.47,
+       min: 13.29,
+       max: 23.47,
+       night: 13.29,
+       eve: 20.17,
+       morn: 23.47
+    },
+    pressure: 1024.2,
+    humidity: 51,
+    weather: [{
+        id: 800,
+        main: "Clear",
+        description: "sky is clear",
+        icon: "01n"
+    }],
+    speed: 2.86,
+    deg: 274,
+    clouds: 0
+}]}
