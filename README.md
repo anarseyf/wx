@@ -6,7 +6,7 @@ This project uses a Wi-Fi module to request weather data from a public API and d
 
 * [4.3 Inch E-Paper display](http://www.waveshare.com/wiki/4.3inch_e-Paper)
 * [Particle Photon](https://store.particle.io/collections/photon) (WiFi module)
-* [Arduino Uno](http://www.arduino.org/products/boards/arduino-uno)
+* [Arduino Uno](http://www.arduino.org/products/boards/arduino-uno) (controls the display)
 * 9V battery (powers the Arduino and the display)
 * Small [3.7V rechargeable battery](https://www.sparkfun.com/products/13851) (powers the Photon only)
 * [TIP-120 Transistor](https://www.adafruit.com/product/976) (turns off power to Arduino and display when not updating)
@@ -82,6 +82,8 @@ System.sleep(SLEEP_MODE_DEEP, DEEP_SLEEP_SECONDS);
 # Future plans (version 2)
 * ZIP code entry plug-in
 * Even less power (Arduino Pro Mini)
+* Button for immediate refresh
+* Easier access to Photon's Safe Mode
 * Better jumper wires that don't fall out so easily
 
 # Photos
