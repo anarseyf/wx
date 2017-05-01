@@ -13,6 +13,7 @@ This project uses a Wi-Fi module to request weather data from a public API and d
 
 # How it works
 ## Logic
+* Photon connects to the web, then turns on the transistor which powers on the Arduino.
 * Photon and Arduino establish communication via I2C. Photon is Master, Arduino is Slave.
 * Photon requests and receives ZIP code from Arduino (this is hard-coded to `94123`, but I plan to add a plug-in module to select any ZIP).
 * Photon publishes an event called `wx-request`, which is tied to a Particle [Webhook](https://docs.particle.io/guide/tools-and-features/webhooks/):
@@ -44,7 +45,9 @@ Thu,Apr 12,-2/-5,10d
 Fri,Apr 13,30/19,50d
 ```
 * Arduino parses the message, and renders the data on the screen. The last item is converted to an image name; for example, `09d` becomes `09D.BMP`.
-## Hardware
+* Photon turns off the transistor, then enters deep sleep mode.
+* 6 hours later the process repeats.
+## Hardware notes
 
 * Sleep and Force Sleep:
   * The Photon has an excellent low-power mode. In Deep Sleep it only consumes a handful of microamperes. At the end of the specified sleep period the chip restarts.
