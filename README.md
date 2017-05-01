@@ -4,12 +4,12 @@ This project uses a Wi-Fi module to request weather data from a public API and d
 
 # Components
 
-* [4.3 Inch E-Paper display](www.waveshare.com/wiki/4.3inch_e-Paper)
-* [Particle Photon](https://store.particle.io/collections/photon)
-* Arduino Uno
+* [4.3 Inch E-Paper display](http://www.waveshare.com/wiki/4.3inch_e-Paper)
+* [Particle Photon](https://store.particle.io/collections/photon) (WiFi module)
+* [Arduino Uno](http://www.arduino.org/products/boards/arduino-uno)
 * 9V battery (powers the Arduino and the display)
-* Small 3.7V rechargeable battery (powers the Photon only)
-* TIP-120 Transistor (turns off power to Arduino and display except when updating)
+* Small [3.7V rechargeable battery](https://www.sparkfun.com/products/13851) (powers the Photon only)
+* [TIP-120 Transistor](https://www.adafruit.com/product/976) (turns off power to Arduino and display when not updating)
 
 # How it works
 ## Logic
@@ -46,8 +46,10 @@ Fri,Apr 13,30/19,50d
 * Arduino parses the message, and renders the data on the screen. The last item is converted to an image name; for example, ```09d``` becomes ```09D.BMP```.
 ## Hardware
 
-* Sleep; force sleep
-Particle has an excellent low-power mode. In Deep Sleep it only consumes a handful of microamperes. At the end of the specified sleep period the chip restarts.
+* Sleep and Force Sleep:
+  * The Photon has an excellent low-power mode. In Deep Sleep it only consumes a handful of microamperes. At the end of the specified sleep period the chip restarts.
+  * There is a separate force-sleep cycle that shuts down the Photon after 45 seconds. This is in case there was a connectivity or other problem that prevented a proper update.
+  * **TODO**: in case of force sleep, set sleep duration to a smaller value than 6 hours.
 ```C
 System.sleep(SLEEP_MODE_DEEP, DEEP_SLEEP_SECONDS);
 ```
@@ -55,7 +57,7 @@ System.sleep(SLEEP_MODE_DEEP, DEEP_SLEEP_SECONDS);
 * SD Card: 
   * the `epd_disp_bitmap()` function can be used to load BMP images from the display's memory. These are initially loaded from a micro-SD card, then copied to internal flash memory.
 * Acrylic case:
-  * I sent Acrobat files with laser cutting specs for top and bottom cover to [Pagoda Arts](pagodaarts.com), located in San Francisco. They cut an 1/8" sheet of acrylic to these specs. See photo below.
+  * I sent AutoCAD files with laser cutting specs for top and bottom cover to [Pagoda Arts](pagodaarts.com), located in San Francisco. They cut an 1/8" sheet of acrylic to these specs. See photo below.
 * Transistor: used to turn off the unnecessary components when not updating. An update happens once every 6 hours, and this allows us to use very little power most of the time.
 * Current:
   * Photon: normal 50mA, deep sleep 50µA (very rough numbers)
@@ -74,27 +76,28 @@ System.sleep(SLEEP_MODE_DEEP, DEEP_SLEEP_SECONDS);
   * The EPD library is modified to include a function called [epd_import_sd()](/libraries/epd-modified/epd.cpp#L782). This allows copying images from the SD card to the display's built-in NandFlash memory. This removes the need to have an SD card always plugged in, which is good because it seems to corrupt SD cards once in a while.
   
 # Various
-* Why even use an Arduino?
-  * The main reason is that I couldn't get the EPD library to run on the Photon. Besides it's more fun this way :-)
+* Why even use an Arduino Uno - can't the Photon handle everything?
+  * The main reason is that I couldn't get the EPD library to run on the Photon.
 
 # Future plans (version 2)
 * ZIP code entry plug-in
 * Even less power (Arduino Pro Mini)
+* Better jumper wires that don't fall out so easily
 
 # Photos
 ## Display
-<img src="/screenshots/display.jpg" width="50%">
+<img src="/screenshots/display.jpg" width="75%">
 
 ## Acrylic Case
-<img src="/screenshots/case.jpg" width="50%">
+<img src="/screenshots/case.jpg" width="75%">
 
 ## Main components 
-<img src="/screenshots/bottom.jpg" width="50%">
+<img src="/screenshots/bottom.jpg" width="75%">
 
 ## Transistor
-<img src="/screenshots/transistor.jpg" width="50%">
+<img src="/screenshots/transistor.jpg" width="75%">
   
-# Sample openweathermap output
+# Sample openweathermap response
 ```javascript
 {
     city: {
