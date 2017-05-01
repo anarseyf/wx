@@ -21,9 +21,10 @@ Particle.subscribe("wx-data", dataHandler, MY_DEVICES);
 ...
 Particle.publish("wx-request", zip, PRIVATE);
 ```
-* The webhook creates a URL in the format:
+* The webhook creates an HTTP request to OpenWeatherMap in this format:
 ```http://api.openweathermap.org/data/2.5/forecast/daily?APPID=<app-id>&zip=<ZIP>,US&units=metric```
-  * *app-id* is supplied in the Webhook config; *zip* comes from **wx-request**.
+  * *app-id* is my unique OpenWeatherMap API key; it's configured as a parameter in the Webhook
+  * *zip* comes from **wx-request**.
 * *dataHandler* collects partial responses (the full response is larger than Particle's payload limit, which I think is 256 bytes).
 * Photon parses the response using the ```SparkJson``` library:
 ```C
@@ -54,7 +55,7 @@ System.sleep(SLEEP_MODE_DEEP, DEEP_SLEEP_SECONDS);
 * SD Card: 
   * the `epd_disp_bitmap()` function can be used to load BMP images from the display's memory. These are initially loaded from a micro-SD card, then copied to internal flash memory.
 * Acrylic case:
-  * I sent Acrobat files [Pagoda Arts](pagodaarts.com)
+  * I sent Acrobat files with laser cutting specs for top and bottom cover to [Pagoda Arts](pagodaarts.com), located in San Francisco. They cut an 1/8" sheet of acrylic to these specs. See photo below.
 * Transistor: used to turn off the unnecessary components when not updating. An update happens once every 6 hours, and this allows us to use very little power most of the time.
 * Current:
   * Photon: normal 50mA, deep sleep 50µA (very rough numbers)
