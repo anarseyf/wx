@@ -2,6 +2,8 @@
 
 This project uses a Wi-Fi module to request weather data from a public API and display it on an E-Paper display. Weather is only fetched every 6 hours, and power consumption is reduced to a few microamperes when not updating. The display requires no power when not updating, which is perfect for this application. The widget is powered by two batteries serving distinct purposes.
 
+![Display](/screenshots/display.jpg)
+
 # Components
 
 * [4.3 Inch E-Paper display](www.waveshare.com/wiki/4.3inch_e-Paper)
