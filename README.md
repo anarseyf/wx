@@ -14,7 +14,7 @@ This project uses a Wi-Fi module to request weather data from a public API and d
 # How it works
 ## Logic
 * Photon connects to the web, then turns on the transistor which powers on the Arduino.
-* Photon and Arduino establish communication via I2C. Photon is Master, Arduino is Slave.
+* Photon and Arduino establish communication via I<sup>2</sup>C. Photon is Master, Arduino is Slave.
 * Photon requests and receives ZIP code from Arduino (this is hard-coded to `94123`, but I plan to add a plug-in module to select any ZIP).
 * Photon publishes an event called `wx-request`, which is tied to a Particle [Webhook](https://docs.particle.io/guide/tools-and-features/webhooks/):
 ```C
@@ -34,7 +34,7 @@ StaticJsonBuffer<12000> buffer;
 JsonObject& json = buffer.parseObject((char*)apiResponse.c_str());
 ```
 The necessary fields are extracted. This includes a code for the weather icon.
-* The result is sent to Arduino via I2C. It looks like this:
+* The result is sent to Arduino via I<sup>2</sup>C. It looks like this:
 ```
 San Francisco
 04-09-2017 12:00 PM
@@ -71,10 +71,13 @@ System.sleep(SLEEP_MODE_DEEP, DEEP_SLEEP_SECONDS);
   * Arduino Uno: Accepts 9V Vin (has a voltage regulator)
   * E-Paper display: accepts both 3.3V and 5V.
 
+## Circuit diagram
+* **TODO** create :-)
+
 ## Libraries used
 
 * SparkJson
-* Wire (I2C)
+* Wire (I<sup>2</sup>C)
 * [EPD](https://github.com/sabas1080/LibraryEPD/)
   * The EPD library is modified to include a function called [epd_import_sd()](/libraries/epd-modified/epd.cpp#L782). This allows copying images from the SD card to the display's built-in NandFlash memory. This removes the need to have an SD card always plugged in, which is good because it seems to corrupt SD cards once in a while.
   
