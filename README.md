@@ -71,7 +71,7 @@ System.sleep(SLEEP_MODE_DEEP, DEEP_SLEEP_SECONDS);
 * SparkJson
 * Wire (I2C)
 * [EPD](https://github.com/sabas1080/LibraryEPD/)
-  * The EPD library is modified to include a function called [epd_import_sd()](/blob/master/libraries/epd-modified/epd.cpp#L782). This allows copying images from the SD card to the display's built-in NandFlash memory. This removes the need to have an SD card always plugged in, which is good because it seems to corrupt SD cards once in a while.
+  * The EPD library is modified to include a function called [epd_import_sd()](/libraries/epd-modified/epd.cpp#L782). This allows copying images from the SD card to the display's built-in NandFlash memory. This removes the need to have an SD card always plugged in, which is good because it seems to corrupt SD cards once in a while.
   
 # Various
 * Why even use an Arduino?
