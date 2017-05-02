@@ -81,6 +81,10 @@ System.sleep(SLEEP_MODE_DEEP, DEEP_SLEEP_SECONDS);
 * [EPD](https://github.com/sabas1080/LibraryEPD/)
   * The EPD library is modified to include a function called [epd_import_sd()](/libraries/epd-modified/epd.cpp#L782). This allows copying images from the SD card to the display's built-in NandFlash memory. This removes the need to have an SD card always plugged in, which is good because it seems to corrupt SD cards once in a while.
   
+## Code
+* [wx-photon.ino](wx-photon/src/wx-photon.ino) (runs on the Wi-Fi module)
+* [wx-arduino.ino](/wx-arduino/wx-arduino.ino) (runs on the Arduino)
+  
 # Various
 * Why even use an Arduino Uno - can't the Photon handle everything?
   * The main reason is that I couldn't get the EPD library to run on the Photon.
