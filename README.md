@@ -53,7 +53,7 @@ Fri,Apr 13,30/19,50d
   * The Photon has an excellent low-power mode. In Deep Sleep it only consumes a handful of microamps of current. At the end of the specified sleep period the chip restarts.
   * There is a separate force-sleep cycle that shuts down the Photon after 45 seconds. This is in case there was a connectivity or other problem that prevented a proper update. After a forced sleep, the restart occurs in 30 minutes rather than 4 hours.
 ```C
-System.sleep(SLEEP_MODE_DEEP, DEEP_SLEEP_SECONDS);
+System.sleep(SLEEP_MODE_DEEP, deepSleepSeconds);
 ```
 * E-Paper: this display consumes no power except when updating.
 * SD Card: 
