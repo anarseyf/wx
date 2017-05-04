@@ -95,6 +95,8 @@ System.sleep(SLEEP_MODE_DEEP, DEEP_SLEEP_SECONDS);
 * Button for immediate refresh
 * Easier access to Photon's Safe Mode
 * Better jumper wires that don't fall out so easily
+* Self-report battery level
+* Post diagnostic info or heartbeat to a web service
 
 # Photos
 ## Display
