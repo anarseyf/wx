@@ -35,20 +35,22 @@ const unsigned int ONE_SECOND            = 1000,
                    INTERVAL_WEBHOOK_WAIT = 6 * ONE_SECOND,
                    INTERVAL_NORMAL_SLEEP = 8 * ONE_SECOND,
                    INTERVAL_FORCE_SLEEP  = 45 * ONE_SECOND,
-                   DEEP_SLEEP_SECONDS    = 2 * 3600;
+                   NORMAL_SLEEP_SECONDS  = 4 * 3600, // 4 hours
+                   FORCE_SLEEP_SECONDS   = 1800; // half hour
 
 unsigned int timeRequest = 0,
              timeSend = 0,
              timeNormalSleep = ULONG_MAX,
              timeParse = ULONG_MAX,
-             timeForceSleep = millis() + INTERVAL_FORCE_SLEEP;
+             timeForceSleep = millis() + INTERVAL_FORCE_SLEEP,
+             deepSleepSeconds = NORMAL_SLEEP_SECONDS;
 
 void setup() {
     Wire.begin(); // I2C Master
     pinMode(BLUE_PIN, OUTPUT);
     pinMode(TRANSISTOR_PIN, OUTPUT);
 
-    log("debug", "READY");
+    log("debug", "ready");
     Time.zone(-7); // TODO - account for DST
 
     Particle.subscribe("wx-data", dataHandler, MY_DEVICES);
@@ -125,6 +127,7 @@ void loopNormalSleep() {
 void loopForceSleep() {
     if (millis() > timeForceSleep) {
         log("debug", "FORCE DEEP SLEEP");
+        deepSleepSeconds = FORCE_SLEEP_SECONDS;
         goToSleepNow();
     }
 }
@@ -133,7 +136,7 @@ void goToSleepNow() {
     timeForceSleep = ULONG_MAX;
     timeNormalSleep = ULONG_MAX;
     delay(500);
-    System.sleep(SLEEP_MODE_DEEP, DEEP_SLEEP_SECONDS);
+    System.sleep(SLEEP_MODE_DEEP, deepSleepSeconds);
 }
 
 String getZipI2C() {
@@ -217,11 +220,9 @@ String parseWX(String s) {
         String weekday = weekdays[Time.weekday(timestamp) - 1];
         line += weekday + "," + month + " " + day;
 
-        double tempC = obj["temp"]["max"];
-        int tempMax = (int)round(tempC);
+        int tempMax = intFromJsonNumber(obj["temp"]["max"]);
+        int tempMin = intFromJsonNumber(obj["temp"]["min"]);
 
-        tempC = obj["temp"]["min"];
-        int tempMin = (int)round(tempC);
         line += "," + String(tempMax) + "/" + String(tempMin);
 
         const char* icon = obj["weather"][0]["icon"];
@@ -234,6 +235,12 @@ String parseWX(String s) {
 
     // log("wx/result", result);
     return result;
+}
+
+int intFromJsonNumber(JsonVariant& number) {
+    // If the value is a round number, like 23, treating it as double returns 0.
+    double tempDouble = number.as<double>();
+    return (tempDouble ? (int)round(tempDouble) : number.as<int>());
 }
 
 String sendI2C(String s) {
