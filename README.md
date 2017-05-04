@@ -1,6 +1,6 @@
 # Overview
 
-This project uses a Wi-Fi module to request weather data from a public API and display it on an E-Paper display. Weather is only fetched every 6 hours, and power consumption is reduced to a few microamperes when not updating. The display requires no power when not updating, which is perfect for this application. The widget is powered by two batteries serving distinct purposes. Photos below.
+This project uses a Wi-Fi module to request weather data from a public API and display it on an E-Paper display. Weather is only fetched every 4 hours, and power consumption is on the order of microamps between updates. The display requires no power when not updating, which is perfect for this application. The widget is powered by two batteries serving distinct purposes. Photos below.
 
 # Components
 
@@ -46,13 +46,12 @@ Fri,Apr 13,30/19,50d
 ```
 * Arduino parses the message, and renders the data on the screen. The last item is converted to an image name; for example, `09d` becomes `09D.BMP`.
 * Photon turns off the transistor, then enters deep sleep mode.
-* 6 hours later the process repeats.
+* 4 hours later the process repeats.
 ## Hardware notes
 
 * Sleep and Force Sleep:
-  * The Photon has an excellent low-power mode. In Deep Sleep it only consumes a handful of microamperes. At the end of the specified sleep period the chip restarts.
-  * There is a separate force-sleep cycle that shuts down the Photon after 45 seconds. This is in case there was a connectivity or other problem that prevented a proper update.
-  * **TODO**: in case of force sleep, set sleep duration to a smaller value than 6 hours.
+  * The Photon has an excellent low-power mode. In Deep Sleep it only consumes a handful of microamps of current. At the end of the specified sleep period the chip restarts.
+  * There is a separate force-sleep cycle that shuts down the Photon after 45 seconds. This is in case there was a connectivity or other problem that prevented a proper update. After a forced sleep, the restart occurs in 30 minutes rather than 4 hours.
 ```C
 System.sleep(SLEEP_MODE_DEEP, DEEP_SLEEP_SECONDS);
 ```
@@ -61,7 +60,7 @@ System.sleep(SLEEP_MODE_DEEP, DEEP_SLEEP_SECONDS);
   * the `epd_disp_bitmap()` function can be used to load BMP images from the display's memory. These are initially loaded from a micro-SD card, then copied to internal flash memory.
 * Acrylic case:
   * I sent AutoCAD files with laser cutting specs for top and bottom cover to [Pagoda Arts](pagodaarts.com), located in San Francisco. They cut an 1/8" sheet of acrylic to these specs. See photo below.
-* Transistor: used to turn off the unnecessary components when not updating. An update happens once every 6 hours, and this allows us to use very little power most of the time.
+* Transistor: used to turn off the unnecessary components when not updating. An update happens once every 4 hours, and this allows us to use very little power most of the time.
 * Current:
   * Photon: normal 50mA, deep sleep 50µA (very rough numbers)
   * Arduino Uno: 50mA
