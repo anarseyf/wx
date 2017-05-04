@@ -60,14 +60,13 @@ System.sleep(SLEEP_MODE_DEEP, DEEP_SLEEP_SECONDS);
   * the `epd_disp_bitmap()` function can be used to load BMP images from the display's memory. These are initially loaded from a micro-SD card, then copied to internal flash memory.
 * Acrylic case:
   * I sent AutoCAD files with laser cutting specs for top and bottom cover to [Pagoda Arts](pagodaarts.com), located in San Francisco. They cut an 1/8" sheet of acrylic to these specs. See photo below.
-* Transistor: used to turn off the unnecessary components when not updating. An update happens once every 4 hours, and this allows us to use very little power most of the time.
 * Current:
   * Photon: normal 50mA, deep sleep 50µA (very rough numbers)
   * Arduino Uno: 50mA
   * E-Paper display: 150-200mA when updating
 * Voltage:
   * Photon: Accepts 3.3-5V (bad idea to plug in a 9V battery directly, as I've found out)
-  * Arduino Uno: Accepts 9V Vin (has a voltage regulator)
+  * Arduino Uno: Accepts 9V from battery
   * E-Paper display: accepts both 3.3V and 5V.
 
 ## Circuit diagram
