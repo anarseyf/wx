@@ -85,7 +85,7 @@ System.sleep(SLEEP_MODE_DEEP, deepSleepSeconds);
   
 # Various
 * Why even use an Arduino Uno - can't the Photon handle everything?
-  * The main reason is that I couldn't get the EPD library to run on the Photon.
+  * The EPD library wouldn't run on the Photon.
 
 # Future plans (version 2)
 * ZIP code entry plug-in
