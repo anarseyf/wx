@@ -69,9 +69,6 @@ System.sleep(SLEEP_MODE_DEEP, deepSleepSeconds);
   * Arduino Uno: Accepts 9V from battery
   * E-Paper display: accepts both 3.3V and 5V.
 
-## Circuit diagram
-* **TODO** create :-)
-
 ## Libraries used
 
 * SparkJson
